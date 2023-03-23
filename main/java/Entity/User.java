@@ -9,11 +9,11 @@ public class User {
     private String phone_number;
     private String path_to_resume;
     private String student_card;
-    private String roles_id;
+    private Roles roles_id;
     private String path_to_photo;
 
 
-    public User(Long id, String name, String surname, String phone_number, String path_to_resume, String student_card, String roles_id, String path_to_photo) {
+    public User(Long id, String name, String surname, String phone_number, String path_to_resume, String student_card, Roles roles_id, String path_to_photo) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -24,7 +24,7 @@ public class User {
         this.path_to_photo = path_to_photo;
     }
 
-    public User(String name, String surname, String phone_number, String path_to_resume, String student_card, String roles_id, String path_to_photo) {
+    public User(String name, String surname, String phone_number, String path_to_resume, String student_card, Roles roles_id, String path_to_photo) {
         this(null, name, surname, phone_number, path_to_resume, student_card, roles_id, path_to_photo);
     }
 
@@ -76,11 +76,11 @@ public class User {
         this.student_card = student_card;
     }
 
-    public String getRoles_id() {
+    public Roles getRoles_id() {
         return roles_id;
     }
 
-    public void setRoles_id(String roles_id) {
+    public void setRoles_id(Roles roles_id) {
         this.roles_id = roles_id;
     }
 

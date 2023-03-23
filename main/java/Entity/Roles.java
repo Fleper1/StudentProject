@@ -49,6 +49,6 @@ public class Roles {
 
     @Override
     public String toString() {
-        return "Statuses{" + "id = " + id + ", role = " + role + '}';
+        return "Roles{" + "id = " + id + ", role = " + role + '}';
     }
 }

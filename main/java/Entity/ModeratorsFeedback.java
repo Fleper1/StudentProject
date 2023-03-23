@@ -68,6 +68,6 @@ public class ModeratorsFeedback {
 
     @Override
     public String toString() {
-        return "Backlinking{" + "id = " + id + ", moderator_id = " + moderator_id + ", publication_id = " + publication_id + ", text = " + text + '}';
+        return "ModeratorsFeedback{" + "id = " + id + ", moderator_id = " + moderator_id + ", publication_id = " + publication_id + ", text = " + text + '}';
     }
 }
