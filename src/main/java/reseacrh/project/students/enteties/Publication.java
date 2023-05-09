@@ -8,15 +8,16 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.UUID;
 
 @Document(collection="publications")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Publication {
-
     @Id
     private ObjectId id;
+//    private String imdbId = String.valueOf(UUID.randomUUID());
     private String date;
     private String title;
     private String description;
