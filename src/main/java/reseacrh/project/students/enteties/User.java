@@ -11,6 +11,7 @@ public class User implements Serializable {
     @Column(nullable = false, updatable = false)
     private Long id;
     private String name;
+    private String email;
     private String surname;
     private String phoneNumber;
     private int rolesId;
@@ -20,9 +21,10 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(Long id, String name, String surname, String phoneNumber, int rolesId, String pathToPhoto) {
+    public User(Long id, String name, String email, String surname, String phoneNumber, int rolesId, String pathToPhoto) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.rolesId = rolesId;

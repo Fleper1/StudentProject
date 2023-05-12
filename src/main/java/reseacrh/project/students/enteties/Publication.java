@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Publication {
     @Id
     private ObjectId id;
-//    private String imdbId = String.valueOf(UUID.randomUUID());
+    private String imdbId = String.valueOf(UUID.randomUUID());
     private String date;
     private String title;
     private String description;

@@ -1,11 +1,14 @@
 package reseacrh.project.students.controllers;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reseacrh.project.students.enteties.Backlinking;
 import reseacrh.project.students.enteties.Publication;
+import reseacrh.project.students.enteties.PublicationReports;
+import reseacrh.project.students.services.BacklinkingService;
+import reseacrh.project.students.services.PublicationReportsService;
 import reseacrh.project.students.services.PublicationService;
 
 import java.util.List;
@@ -16,10 +19,14 @@ import java.util.List;
 public class PublicationsController {
 
     private final PublicationService publicationService;
+    private final BacklinkingService backlinkingService;
+    private final PublicationReportsService publicationReportsService;
 
     @Autowired
-    public PublicationsController(PublicationService publicationService) {
+    public PublicationsController(PublicationService publicationService, BacklinkingService backlinkingService, PublicationReportsService publicationReportsService) {
         this.publicationService = publicationService;
+        this.backlinkingService = backlinkingService;
+        this.publicationReportsService = publicationReportsService;
     }
 
     @PostMapping("/giver/create")
@@ -33,8 +40,18 @@ public class PublicationsController {
     }
 
     @GetMapping("/searcher/{id}")
-    public ResponseEntity<Publication> getPublication(@PathVariable ObjectId id) {
-        return new ResponseEntity<>(publicationService.getPublicationById(id), HttpStatus.OK);
+    public ResponseEntity<Publication> getPublication(@PathVariable String id) {
+        return new ResponseEntity<>(publicationService.getPublicationByImdbId(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/searcher/{}/apply")
+    public ResponseEntity<Backlinking> applyForPublication(@RequestBody Backlinking backlinking){
+        return new ResponseEntity<>(backlinkingService.saveApplyForPublication(backlinking), HttpStatus.OK);
+    }
+
+    @PostMapping("/searcher/{}/report")
+    public ResponseEntity<PublicationReports> reportPublication(@RequestBody PublicationReports publicationReports){
+        return new ResponseEntity<>(publicationReportsService.reportPublication(publicationReports), HttpStatus.OK);
     }
 
 }

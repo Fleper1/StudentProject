@@ -13,13 +13,15 @@ public class Backlinking implements Serializable {
     private String message;
     private Long candidate;
     private String publicationId;
+    private Long ownerId;
 
 
-    public Backlinking(int id, String message, Long candidate, String publicationId) {
+    public Backlinking(int id, String message, Long candidate, String publicationId, Long ownerId) {
         this.id = id;
         this.message = message;
         this.candidate = candidate;
         this.publicationId = publicationId;
+        this.ownerId = ownerId;
     }
 
     public Backlinking() {
@@ -31,6 +33,14 @@ public class Backlinking implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getMessage() {

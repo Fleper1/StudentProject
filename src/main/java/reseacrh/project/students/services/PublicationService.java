@@ -28,7 +28,11 @@ public class PublicationService {
         return publicationsRepo.findAll();
     }
 
-    public Publication getPublicationById(ObjectId id) {
-        return publicationsRepo.findPublicationById(id);
+    public Publication getPublicationByImdbId(String id) {
+        return publicationsRepo.findPublicationByImdbId(id);
+    }
+
+    public List<Publication> getMyReviews(Long id) {
+        return publicationsRepo.findMyReviews(id);
     }
 }
