@@ -7,7 +7,8 @@ import reseacrh.project.students.enteties.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Long> {
+public interface UserRepo extends JpaRepository<User, Integer> {
 
-    Optional<User> findUserById(Long id);
+    Optional<User> findUserById(Integer id);
+    Optional<User> findByEmail(String Email);
 }

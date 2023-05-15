@@ -1,82 +1,67 @@
 package reseacrh.project.students.enteties;
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class User implements Serializable {
+@Table(name = "_user")
+public class User implements UserDetails {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
-    private Long id;
-    private String name;
+    @GeneratedValue
+    private Integer id;
+    private String firstname;
+    private String lastname;
     private String email;
-    private String surname;
-    private String phoneNumber;
-    private int rolesId;
-    private String pathToPhoto;
+    private String password;
+    private String phone;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-
-
-    public User() {}
-
-    public User(Long id, String name, String email, String surname, String phoneNumber, int rolesId, String pathToPhoto) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.surname = surname;
-        this.phoneNumber = phoneNumber;
-        this.rolesId = rolesId;
-        this.pathToPhoto = pathToPhoto;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getSurname() {
-        return surname;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getRolesId() {
-        return rolesId;
-    }
-
-    public void setRolesId(int rolesId) {
-        this.rolesId = rolesId;
-    }
-
-    public String getPathToPhoto() {
-        return pathToPhoto;
-    }
-
-    public void setPathToPhoto(String pathToPhoto) {
-        this.pathToPhoto = pathToPhoto;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
-

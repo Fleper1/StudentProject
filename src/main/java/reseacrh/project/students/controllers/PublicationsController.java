@@ -44,12 +44,12 @@ public class PublicationsController {
         return new ResponseEntity<>(publicationService.getPublicationByImdbId(id), HttpStatus.OK);
     }
 
-    @PostMapping("/searcher/{}/apply")
+    @PostMapping("/searcher/apply")
     public ResponseEntity<Backlinking> applyForPublication(@RequestBody Backlinking backlinking){
         return new ResponseEntity<>(backlinkingService.saveApplyForPublication(backlinking), HttpStatus.OK);
     }
 
-    @PostMapping("/searcher/{}/report")
+    @PostMapping("/searcher/report")
     public ResponseEntity<PublicationReports> reportPublication(@RequestBody PublicationReports publicationReports){
         return new ResponseEntity<>(publicationReportsService.reportPublication(publicationReports), HttpStatus.OK);
     }
