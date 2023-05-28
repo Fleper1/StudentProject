@@ -1,5 +1,6 @@
 package reseacrh.project.students.repositories;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -13,6 +14,9 @@ import java.util.List;
 public interface PublicationsRepo extends MongoRepository<Publication, ObjectId> {
     Publication findPublicationByImdbId(String id);
 
-    @Query("{'candidate' : ?0}")
-    List<Publication> findMyReviews(Long ownerId);
+    @Query("{'imdbId' : {$in: ?0}}")
+    List<Publication> findMyReviews(List<String> imdbIds);
+
+    @Query("{'userId' : ?0}")
+    List<Publication> findMyPublications(Long ownerId);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import reseacrh.project.students.enteties.Resume;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ResumeRepo extends MongoRepository<Resume, ObjectId> {
@@ -14,4 +15,6 @@ public interface ResumeRepo extends MongoRepository<Resume, ObjectId> {
 
     @Query("{'ownerId' : {$in : ?0}}")
     List<Resume> findResumes(List<Long> usersId);
+
+    Optional<Resume> findResumeByOwnerId(Long ownerId);
 }

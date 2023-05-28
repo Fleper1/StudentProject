@@ -1,0 +1,36 @@
+.review {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 1000px;
+    height: 250px;
+    box-sizing: border-box;
+    background: #BFC1CB;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.review__content{
+    display: flex;
+    flex-direction: column;
+}
+
+.review__title{
+    width: 900px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.review__description{
+    margin-top: 10px;
+    height: 150px;
+}
+
+h4 {
+    color: red;
+    font-weight: lighter;
+}

@@ -10,6 +10,8 @@ import reseacrh.project.students.enteties.Role;
 import reseacrh.project.students.enteties.User;
 import reseacrh.project.students.repositories.UserRepo;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -29,8 +31,8 @@ public class AuthenticationService {
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
-
+        var userForId = repository.findByEmail(registerRequest.getEmail()).orElseThrow();
+        return AuthenticationResponse.builder().token(jwtToken).id(userForId.getId()).build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
@@ -40,6 +42,6 @@ public class AuthenticationService {
                 ));
         var user = repository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder().token(jwtToken).id(user.getId()).build();
     }
 }

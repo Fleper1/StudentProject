@@ -28,11 +28,16 @@ public class PublicationService {
         return publicationsRepo.findAll();
     }
 
-    public Publication getPublicationByImdbId(String id) {
-        return publicationsRepo.findPublicationByImdbId(id);
+    public Long getOwnerId(String imdbId){
+        Publication publication = publicationsRepo.findPublicationByImdbId(imdbId);
+        return publication.getUserId();
     }
 
-    public List<Publication> getMyReviews(Long id) {
-        return publicationsRepo.findMyReviews(id);
+    public Publication getPublicationByImdbId(String id) {
+        System.out.println(id);
+        Publication publication = publicationsRepo.findPublicationByImdbId(id);
+        publication.setViews(publication.getViews() + 1);
+        publicationsRepo.save(publication);
+        return publicationsRepo.findPublicationByImdbId(id);
     }
 }

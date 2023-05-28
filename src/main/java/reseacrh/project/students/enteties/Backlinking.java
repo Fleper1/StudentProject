@@ -24,6 +24,12 @@ public class Backlinking implements Serializable {
         this.ownerId = ownerId;
     }
 
+    public Backlinking(String message, Long candidate, String publicationId) {
+        this.message = message;
+        this.candidate = candidate;
+        this.publicationId = publicationId;
+    }
+
     public Backlinking() {
     }
 

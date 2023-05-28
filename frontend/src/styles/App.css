@@ -1,0 +1,15 @@
+body::-webkit-scrollbar { width: 0; }
+
+#root{
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background: #D4DBE2;
+}

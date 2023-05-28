@@ -2,6 +2,7 @@ package reseacrh.project.students.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reseacrh.project.students.enteties.Backlinking;
@@ -52,6 +53,11 @@ public class PublicationsController {
     @PostMapping("/searcher/report")
     public ResponseEntity<PublicationReports> reportPublication(@RequestBody PublicationReports publicationReports){
         return new ResponseEntity<>(publicationReportsService.reportPublication(publicationReports), HttpStatus.OK);
+    }
+
+    @GetMapping("/owner/{publId}")
+    public ResponseEntity<Long> getPublicationOwner(@PathVariable String publId){
+        return new ResponseEntity<>(publicationService.getOwnerId(publId), HttpStatus.OK);
     }
 
 }

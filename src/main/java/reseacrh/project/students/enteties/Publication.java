@@ -27,7 +27,8 @@ public class Publication {
     private String status;
     private int views;
 
-    public Publication(String date, String title, String description, List<String> requirements, Long userId, Long moderatorId, String status, int views) {
+    public Publication(String date, String title, String description, List<String> requirements,
+                       Long userId, Long moderatorId, String status, int views) {
         this.date = date;
         this.title = title;
         this.description = description;

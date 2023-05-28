@@ -6,6 +6,7 @@ import reseacrh.project.students.enteties.Resume;
 import reseacrh.project.students.repositories.ResumeRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ResumeService {
@@ -22,6 +23,11 @@ public class ResumeService {
 
     public Resume getResumeByImdbId(String imdbId) {
         return resumeRepo.findResumeByImdbId(imdbId);
+    }
+
+    public Boolean doesUserHaveResume(Long id){
+        Optional<Resume> resume = resumeRepo.findResumeByOwnerId(id);
+        return resume.isPresent();
     }
 
     public List<Resume> getAllResume(List<Long> usersId) {
