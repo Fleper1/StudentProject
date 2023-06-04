@@ -29,8 +29,10 @@ const PublicationsList = ({publications, filter, setFilter}) => {
                            placeholder="Пошук за назвою..."
                            type="search"/>
                 </div>
-                {publications.map((publication, index) =>
+                {publications.length
+                    ? publications.map((publication, index) =>
                     <PublicationItem key={index} publication={publication}/>)
+                    : <h2>Не було знайдено жодної публікації</h2>
                 }
             </div>
             <div className={cl.tags}>
@@ -48,7 +50,7 @@ const PublicationsList = ({publications, filter, setFilter}) => {
                     </div>
                     <div className={cl.tagsLang}>
                         <Tag click={click} id="Vue.js">Vue.js</Tag>
-                        <Tag click={click} id="Unity">Unity</Tag>
+                        <Tag click={click} id="Unreal">Unreal</Tag>
                         <Tag click={click} id="Ruby">Ruby</Tag>
                         <Tag click={click} id=".Net">.Net</Tag>
                         <Tag click={click} id="C++">C++</Tag>

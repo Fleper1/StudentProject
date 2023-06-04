@@ -4,6 +4,7 @@ import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./component/AppRouter";
 import Navbar from "./component/UI/Navbar/Navbar";
 import "./styles/App.css"
+import Footer from "./component/UI/Footer/Footer";
 
 function App() {
 
@@ -18,7 +19,6 @@ function App() {
             setIsAuth(true)
             setJwt(localStorage.getItem("jwt"));
             setUserId(parseInt(localStorage.getItem("userId")));
-            console.log(jwt, userId)
         }
         setIsLoading(false)
     }, [])
@@ -38,6 +38,7 @@ function App() {
             <BrowserRouter>
                 <Navbar/>
                 <AppRouter/>
+                <Footer/>
             </BrowserRouter>
         </AuthContext.Provider>
     )

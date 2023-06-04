@@ -13,16 +13,15 @@ const Publications = () => {
 
     const [fetchPosts, isPublicationLoading, publicationError] = useFetching(async () => {
         const response = await PublicationService.getAll();
-        setPublications(response.data);
+        setPublications(response.data.reverse());
     })
 
     useEffect(() => {
         fetchPosts();
-        console.log(publications)
     }, [])
 
     return (
-        <div style={{marginTop: '60px'}}>
+        <div style={{marginTop: '60px', minHeight: "100%"}}>
             {publicationError &&
                 <h1>Something goes wrong: ${publicationError}</h1>}
             <PublicationsList filter={filter} setFilter={setFilter} publications={searchedAndTaggedPublications}/>

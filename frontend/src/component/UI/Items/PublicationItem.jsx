@@ -16,11 +16,11 @@ const PublicationItem = (publication) => {
                     {publication.publication.title}
                 </h2>
                 <div className={cl.description}>
-                    {publication.publication.description.substring(0, 700).concat('...')}
+                    {publication.publication.description.substring(0, 400).concat('...')}
                 </div>
                 <div className={cl.publ__footer}>
-                    <div>date:{publication.publication.date}</div>
-                    <div>views:{publication.publication.views}</div>
+                    <div>Опубліковано:{publication.publication.date}</div>
+                    <div>Переглядів:{publication.publication.views}</div>
                 </div>
             </div>
         </div>

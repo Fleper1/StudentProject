@@ -2,10 +2,6 @@ import {useMemo} from "react";
 
 export const useSortedPublications = (publications, tags) => {
 
-    console.log("PUBLICATION IN")
-    console.log(publications)
-    console.log("TAGS ")
-    console.log(tags)
     /*const sortedPublications = useMemo(() => {
         const publicationsWithTags = [];
         if(tags.length){
@@ -19,7 +15,6 @@ export const useSortedPublications = (publications, tags) => {
     }, [tags, publications]);*/
 
     const sortedPublications = publications.filter(publication => tags.every(t => publication.requirements.includes(t)))
-    console.log(sortedPublications)
     return sortedPublications;
 }
 

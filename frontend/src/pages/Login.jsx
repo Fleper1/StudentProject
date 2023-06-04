@@ -15,7 +15,7 @@ const Login = () => {
     const password = useInput('', {minLength: 3, isEmpty: true, maxLength: 21})
     const [badAuth, setBadAuth] = useState(false)
 
-    const {setJwt, setIsAuth} = useContext(AuthContext);
+    const {setJwt, setIsAuth, setUserId} = useContext(AuthContext);
 
     const logUser = async (e) => {
         e.preventDefault()
@@ -35,6 +35,7 @@ const Login = () => {
             localStorage.setItem('jwt', response.data.token);
             setJwt(response.data.token)
             localStorage.setItem('userId', response.data.id.toString())
+            setUserId(response.data.id);
             navigate("/publications");
         }
     }

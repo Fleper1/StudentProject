@@ -15,19 +15,25 @@ public class Backlinking implements Serializable {
     private String publicationId;
     private Long ownerId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_backlinking_id")
+    private User user;
 
-    public Backlinking(int id, String message, Long candidate, String publicationId, Long ownerId) {
+
+    public Backlinking(int id, String message, Long candidate, String publicationId, Long ownerId, User user) {
         this.id = id;
         this.message = message;
         this.candidate = candidate;
         this.publicationId = publicationId;
         this.ownerId = ownerId;
+        this.user = user;
     }
 
-    public Backlinking(String message, Long candidate, String publicationId) {
+    public Backlinking(String message, Long candidate, String publicationId, User user) {
         this.message = message;
         this.candidate = candidate;
         this.publicationId = publicationId;
+        this.user = user;
     }
 
     public Backlinking() {
@@ -71,5 +77,13 @@ public class Backlinking implements Serializable {
 
     public void setPublicationId(String publicationId) {
         this.publicationId = publicationId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

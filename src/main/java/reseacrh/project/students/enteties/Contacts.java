@@ -15,11 +15,16 @@ public class Contacts implements Serializable {
     private String messangerCode;
     private Long owner;
 
-    public Contacts(int id, String messangerName, String messangerCode, Long owner) {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_contacts_id")
+    private User user;
+
+    public Contacts(int id, String messangerName, String messangerCode, Long owner, User user) {
         this.id = id;
         this.messangerName = messangerName;
         this.messangerCode = messangerCode;
         this.owner = owner;
+        this.user = user;
     }
 
     public Contacts() {
@@ -55,5 +60,13 @@ public class Contacts implements Serializable {
 
     public void setOwner(Long owner) {
         this.owner = owner;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

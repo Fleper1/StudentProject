@@ -14,15 +14,20 @@ public class ModeratorsFeedbacks implements Serializable {
     private int publicationId;
     private String text;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_moderator_feedback_id")
+    private User user;
+
 
     public ModeratorsFeedbacks() {
     }
 
-    public ModeratorsFeedbacks(int id, Long moderatorId, int publicationId, String text) {
+    public ModeratorsFeedbacks(int id, Long moderatorId, int publicationId, String text, User user) {
         this.id = id;
         this.moderatorId = moderatorId;
         this.publicationId = publicationId;
         this.text = text;
+        this.user = user;
     }
 
     public int getId() {
@@ -55,5 +60,13 @@ public class ModeratorsFeedbacks implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

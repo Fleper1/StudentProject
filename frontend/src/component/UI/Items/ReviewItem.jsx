@@ -17,8 +17,8 @@ const ReviewItem = (review) => {
         <div onClick={openResume} className={cl.review}>
             <div className={cl.review__content}>
                 <div className={cl.review__title}>
-                    <h2>{review.review.fullName}</h2>
-                    <h4>{review.review.title}</h4>
+                    <div className={cl.fullName}>{review.review.fullName}</div>
+                    <div className={cl.title}>{review.review.title}</div>
                 </div>
                 <div className={cl.review__description}>
                     {review.review.message}

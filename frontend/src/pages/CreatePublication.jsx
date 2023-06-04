@@ -64,7 +64,7 @@ const CreatePublication = () => {
     const description = useInput('', {isEmpty: true})
     const [tags, setTags] = useState([])
 
-    const {jwt, userId} = useContext(AuthContext);
+    const {jwt, userId, setJwt, setUserId, setIsAuth} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const changeTags = (e) => {
@@ -93,6 +93,15 @@ const CreatePublication = () => {
                 userId,
                 jwt
             );
+            if (typeof response.data === 'string' && response.data.includes("JWT expired at")){
+                localStorage.removeItem("auth")
+                localStorage.removeItem("jwt")
+                localStorage.removeItem("userId")
+                setJwt('')
+                setUserId(0)
+                setIsAuth(false)
+                navigate("/login");
+            }
             navigate("/publications");
             console.log(response)
         }catch (e){
@@ -150,7 +159,7 @@ const CreatePublication = () => {
                         </div>
                         <div className={cl.tagsLang}>
                             <Tag click={changeTags} id="Vue.js">Vue.js</Tag>
-                            <Tag click={changeTags} id="Unity">Unity</Tag>
+                            <Tag click={changeTags} id="Unreal">Unreal</Tag>
                             <Tag click={changeTags} id="Ruby">Ruby</Tag>
                             <Tag click={changeTags} id=".Net">.Net</Tag>
                             <Tag click={changeTags} id="C++">C++</Tag>
