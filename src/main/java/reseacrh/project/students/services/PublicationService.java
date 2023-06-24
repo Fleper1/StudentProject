@@ -33,6 +33,10 @@ public class PublicationService {
         return publication.getUserId();
     }
 
+    public List<Publication> getPublicationsByOwnerId(Long ownerId){
+        return publicationsRepo.findMyPublications(ownerId);
+    }
+
     public Publication getPublicationByImdbId(String id) {
         System.out.println(id);
         Publication publication = publicationsRepo.findPublicationByImdbId(id);

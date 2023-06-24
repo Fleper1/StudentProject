@@ -19,5 +19,5 @@ public interface BacklinkingRepo extends JpaRepository<Backlinking, Integer> {
     List<Backlinking> findCandidates(Long ownerId);
 
     @Query(value = "SELECT publication_id FROM backlinking WHERE candidate=?1", nativeQuery = true)
-    List<String> findAppliedPublicationsByUserId(Integer id);
+    List<String> findAppliedPublicationsByUserId(Long id);
 }

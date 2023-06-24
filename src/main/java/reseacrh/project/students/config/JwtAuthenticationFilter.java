@@ -56,8 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-
-
             }
         } catch (ExpiredJwtException e) {
             System.out.println("IM HERE WITH EXCEPTION");
@@ -65,6 +63,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.getWriter().write(e.getMessage());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             return;
+        } catch (Exception e){
+            System.out.println("MY OWN ERROR" + e.getMessage());
         }
         filterChain.doFilter(request, response);
     }

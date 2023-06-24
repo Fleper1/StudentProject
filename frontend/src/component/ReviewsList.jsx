@@ -10,9 +10,6 @@ const ReviewsList = ({reviews, filter, setFilter}) => {
 
     return (
         <div className={cl.reviews__wrapper}>
-            <div className={cl.buttons__div}>
-                <Link className={cl.link} to={"/publications/add"}>Додати проект</Link>
-            </div>
             <div className={cl.searcher}>
                 <input className={cl.input__search}
                        value={filter.query}

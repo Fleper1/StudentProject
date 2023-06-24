@@ -109,7 +109,6 @@ const CreatePublication = () => {
         }
     }
 
-    //console.log(tags, title.value, description.value, jwt, userId);
 
     return (
         <div className={cl.wrapper}>
@@ -119,10 +118,11 @@ const CreatePublication = () => {
             <div className={cl.content}>
                 <div className={cl.texts}>
                     <div className={cl.title}>
-                        <h2 style={{marginLeft: '15px', marginBottom: '10px', marginTop: '10px'}}>Вкажіть заголовок
-                            вашої публікації</h2>
+                        <h2 style={{marginLeft: '15px', marginBottom: '10px', marginTop: '10px'}}>
+                            Вкажіть заголовок вашої публікації
+                        </h2>
                         {(title.isDirty && title.isEmpty) &&
-                            <div style={{color: "white"}}>Поле не може бути пустим!</div>}
+                            <div style={{color: "purple"}}>Поле не може бути пустим!</div>}
                         <input
                             onChange={title.onChange}
                             onBlur={title.onBlur}
@@ -135,7 +135,7 @@ const CreatePublication = () => {
                         <h2 style={{marginLeft: '15px', marginBottom: '10px', marginTop: '10px'}}>Детально опишіть
                             публікацію!</h2>
                         {(description.isDirty && description.isEmpty) &&
-                            <div style={{color: "white"}}>Поле не може бути пустим!</div>}
+                            <div style={{color: "purple"}}>Поле не може бути пустим!</div>}
                         <textarea
                             onChange={description.onChange}
                             onBlur={description.onBlur}

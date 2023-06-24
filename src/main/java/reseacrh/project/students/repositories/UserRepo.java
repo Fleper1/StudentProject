@@ -1,5 +1,6 @@
 package reseacrh.project.students.repositories;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import reseacrh.project.students.enteties.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer> {
+public interface UserRepo extends JpaRepository<User, Long> {
 
     Optional<User> findUserById(Long id);
 
@@ -18,6 +19,7 @@ public interface UserRepo extends JpaRepository<User, Integer> {
                     String firstname, String lastname,
                     String password, String phone, Role role);
 
+    @Transactional
     User getUserById(Long id);
 
     Optional<User> findByEmail(String Email);
