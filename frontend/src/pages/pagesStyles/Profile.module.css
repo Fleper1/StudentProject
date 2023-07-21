@@ -38,6 +38,10 @@ img {
     color: #D4DBE2;
 }
 
+.person::-webkit-scrollbar {
+    width: 0;
+}
+
 .contactChange{
     border-radius: 10px;
     background: #2a2828;
@@ -158,6 +162,10 @@ img {
     box-shadow: 0 0 0.7em .25em rgba(79, 76, 76, 0.78),
     0 0 0.8em .1em rgba(79, 76, 76, 0.78),
     inset 0 0 .4em .25em rgba(79, 76, 76, 0.78);
+}
+
+.results::-webkit-scrollbar {
+    width: 0;
 }
 
 

@@ -10,9 +10,10 @@ import Loader from "../component/UI/Loader/Loader";
 import PublicationItem from "../component/UI/Items/PublicationItem";
 import ProfileService from "../API/ProfileService";
 import {useNavigate} from "react-router-dom";
-import BacklinkingItem from "../component/UI/Items/BacklinkingItem";
 import MyModal from "../component/UI/MyModal/MyModal";
-import MySelect from "../component/UI/MySelect/MySelect";
+import PublicationService from "../API/PublicationService";
+import MyInput from "../component/UI/MyInput/MyInput";
+import {useInput} from "../utils/ustils";
 
 
 const Profile = () => {
@@ -23,13 +24,25 @@ const Profile = () => {
     const {jwt, userId, setIsAuth, setUserId, setJwt} = useContext(AuthContext);
     const navigate = useNavigate();
     const [modal, setModal] = useState(false)
+    const [settings, setSettings] = useState(false)
+    const [isResume, setIsResume] = useState(false)
     const [social, setSocial] = useState({
         Telegram: '', LinkedIn: '', GitHub: ''
     })
 
+    const email = useInput('', {minLength: 3, isEmpty: true, isEmail: true})
+    const newPassword = useInput('', {minLength: 3, isEmpty: true, maxLength: 21})
+    const passwordCheck = useInput('', {isEmpty: true, passwordCheck: newPassword.value})
+    const firstname = useInput('', {minLength: 3, isEmpty: true, maxLength: 21})
+    const lastname = useInput('', {minLength: 3, isEmpty: true, maxLength: 21})
+
+
     const [fetchUser, isUserLoading, userError] = useFetching(
         async () => {
+            const resume = await PublicationService.isResume(userId, jwt)
+            setIsResume(resume.data)
             const response = await ProfileService.getCurrentUser(userId, jwt);
+
             if (typeof response.data === 'string' && response.data?.includes("JWT expired at")) {
                 localStorage.removeItem("auth")
                 localStorage.removeItem("jwt")
@@ -39,7 +52,6 @@ const Profile = () => {
                 setIsAuth(false)
                 navigate("/login");
             } else {
-                console.log(response)
                 setMyInfo(response.data);
             }
         }
@@ -58,7 +70,6 @@ const Profile = () => {
 
             if (typeof response.data === 'string' && response.data?.includes("JWT expired at")) {
 
-                console.log(response.data);
                 localStorage.removeItem("auth")
                 localStorage.removeItem("jwt")
                 localStorage.removeItem("userId")
@@ -102,6 +113,10 @@ const Profile = () => {
         window.location.reload()
     }
 
+    const goToResume = () => {
+        navigate("/resume/add")
+    }
+
     return (
         <div className={cl.wrapper}>
 
@@ -126,6 +141,50 @@ const Profile = () => {
                 </div>
                 <div>
                     <button className={cl.submitContacts} onClick={updateSocials}>Save changes</button>
+                </div>
+            </MyModal>
+
+            <MyModal visible={settings} setVisible={setSettings}>
+                <h2 style={{color: "snow"}}>Налаштування</h2>
+                <div className={cl.changeFirstName}>
+                    {(firstname.isDirty && firstname.minLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути менше ніж 3!</div>}
+                    {(firstname.isDirty && firstname.maxLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути більше ніж 21!</div>}
+                    <MyInput onChange={e => firstname.onChange(e)} onBlur={e => firstname.onBlur(e)}
+                             value={firstname.value} name="firstname" placeholder="Змінити ім'я" type="text"/>
+                </div>
+                <div className={cl.changeLastName}>
+                    {(lastname.isDirty && lastname.minLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути менше ніж 3!</div>}
+                    {(lastname.isDirty && lastname.maxLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути більше ніж 21!</div>}
+                    <MyInput onChange={e => lastname.onChange(e)} onBlur={e => lastname.onBlur(e)}
+                             value={lastname.value} name="lastname" placeholder="Змінити прізвище" type="text"/>
+                </div>
+                <div className={cl.changeEmail}>
+                    {(email.isDirty && email.minLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути менше ніж 3!</div>}
+                    {(email.isDirty && email.emailError) &&
+                        <div style={{color: "white"}}>Неккоректна email адреса!</div>}
+                    <MyInput onChange={email.onChange} onBlur={e => email.onBlur(e)} value={email.value}
+                             name="email" placeholder="Змінити Email" type="email"/>
+                </div>
+                <div className={cl.changePassword}>
+                    {(newPassword.isDirty && newPassword.minLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути менше ніж 3!</div>}
+                    {(newPassword.isDirty && newPassword.maxLengthError) &&
+                        <div style={{color: "white"}}>Довжина поля не може бути більше ніж 21!</div>}
+                    <MyInput onChange={e => newPassword.onChange(e)} onBlur={e => newPassword.onBlur(e)}
+                             value={newPassword.value} name="password" placeholder="Новий пароль" type="password"/>
+                </div>
+                <div className={cl.confirmPassword}>
+                    {(passwordCheck.isDirty && passwordCheck.passwordCheckError) &&
+                        <div style={{color: "white"}}>Паролі не однакові!</div>}
+                    {(passwordCheck.isDirty && passwordCheck.isEmpty) &&
+                        <div style={{color: "white"}}>Поле не може бути пустим!</div>}
+                    <MyInput onChange={passwordCheck.onChange} onBlur={e => passwordCheck.onBlur(e)}
+                             value={passwordCheck.value} placeholder="Вкажіть старий пароль" type="password"/>
                 </div>
             </MyModal>
 
@@ -176,8 +235,12 @@ const Profile = () => {
                 </div>
 
                 <div className={cl.buttons}>
-                    <button className={cl.button}>Заповнити резюме</button>
-                    <button className={cl.button}>Налаштування</button>
+                    {
+                        isResume
+                            ? <button className={cl.button} onClick={goToResume}>Замінити резюме</button>
+                            : <button className={cl.button} onClick={goToResume}>Заповнити резюме</button>
+                    }
+                    <button className={cl.button} onClick={e => setSettings(true)}>Налаштування</button>
                     <button className={[cl.button, cl.buttonR].join(' ')}>Вимкнути аккаунт</button>
                 </div>
             </div>

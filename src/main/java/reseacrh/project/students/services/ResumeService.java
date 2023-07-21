@@ -18,6 +18,12 @@ public class ResumeService {
     }
 
     public Resume newResume(Resume resume) {
+
+        Optional<Resume> isResume = resumeRepo.findResumeByOwnerId(resume.getOwnerId());
+        if (isResume.isPresent()){
+            resume.setId(isResume.get().getId());
+            return resumeRepo.save(resume);
+        }
         return resumeRepo.save(resume);
     }
 

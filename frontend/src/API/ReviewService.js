@@ -17,6 +17,26 @@ export default class ReviewService {
         }
     }
 
+    static async addResume(resume, token) {
+        try{
+            const response = axios({
+                method: 'post',
+                url: "http://localhost:8080/resume/add",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'POST'
+                },
+                data: resume
+            });
+            return response;
+        } catch (e) {
+            console.log(e)
+            return e?.response;
+        }
+    }
+
     static async getNumber(ownerId, token){
         try{
             const response =  await axios.get(
